@@ -14,6 +14,7 @@ import {
 } from "../../../redux/features/location/location.slice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import ButtonComponent from "../../components/shared/ButtonComponent";
 
 export default function District({
   params,
@@ -50,9 +51,7 @@ export default function District({
         handleSelectChange={handleSelectChange}
       />
       <Link href={`/upazilla/${selectedDistrict}`}>
-        <Button type="button" className="my-3">
-          Search
-        </Button>
+        <ButtonComponent title="Search" className="my-3" type="button" />
       </Link>
     </div>
   );

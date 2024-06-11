@@ -9,6 +9,7 @@ import {
   setSelectedDivisionName,
 } from "../redux/features/location/location.slice";
 import Link from "next/link";
+import ButtonComponent from "./components/shared/ButtonComponent";
 
 export default function Home() {
   const dispatch = useAppDispatch();
@@ -38,9 +39,7 @@ export default function Home() {
         handleSelectChange={handleSelectChange}
       />
       <Link href={`/district/${selectedDivision}`}>
-        <Button type="button" className="my-3">
-          Search
-        </Button>
+        <ButtonComponent title="Search" className="my-3" type="button" />
       </Link>
     </div>
   );

@@ -16,6 +16,8 @@ import {
   setSelectedUnionName,
   setSelectedUpazila,
 } from "../../../redux/features/location/location.slice";
+import ButtonComponent from "../../components/shared/ButtonComponent";
+import { useRouter } from "next/navigation";
 const TABLE_HEAD = ["Division", "District", "Upazila", "Union"];
 export default function District({
   params,
@@ -34,7 +36,7 @@ export default function District({
     selectedDivisionName,
     selectedupazillaName,
   } = useAppSelector((state) => state.location);
-
+  const router = useRouter();
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     const [id, name] = selectedValue.split("-");
@@ -44,7 +46,21 @@ export default function District({
   useEffect(() => {
     dispatch(fetchAllUnion(params?.upazilaId));
   }, [dispatch, params]);
-
+  useEffect(() => {
+    if (
+      !selectedDistrictName &&
+      !selectedDivisionName &&
+      !selectedupazillaName &&
+      !selectedunionName
+    ) {
+      router.push("/");
+    }
+  }, [
+    selectedDistrictName,
+    selectedDivisionName,
+    selectedunionName,
+    selectedupazillaName,
+  ]);
   return (
     <div>
       <Select
@@ -52,13 +68,13 @@ export default function District({
         label="Select a Upazila"
         handleSelectChange={handleSelectChange}
       />
-      <Button
-        type="button"
+
+      <ButtonComponent
+        title="Submit"
         className="my-3"
+        type="button"
         onClick={() => setIsTableView(!isTableView)}
-      >
-        Submit
-      </Button>
+      />
       {isTableView && (
         <Card className="h-full w-[500px] overflow-scroll mt-3">
           <table className="w-full min-w-max table-auto text-left">
